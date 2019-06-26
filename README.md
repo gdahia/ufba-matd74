@@ -5,9 +5,10 @@ new approach for a (preferrably NP-Hard) problem, for which I chose the Minimum 
 spanning tree which have the least number of vertices with degree greater than 2.
 
 # How to run
-# Compilation
+## Compilation
 In order to run the local heuristics based on greedily optimizing the potential, first compile the executable:
 ```
+cd implementation
 mkdir build
 make
 ```
