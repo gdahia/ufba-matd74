@@ -48,7 +48,7 @@ int main() {
   // print tree
   std::cout << std::endl << "Output tree:" << std::endl;
   for (const auto e : tree)
-    std::cout << e.first << " " << e.second << std::endl;
+    std::cout << e.first + 1 << " " << e.second + 1 << std::endl;
 
   // print number of branch vertices
   std::cout << std::endl

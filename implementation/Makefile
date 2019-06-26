@@ -4,15 +4,15 @@ CXXFLAGS = -std=c++11 -O3 -Wall
 
 INCLUDE = -I $(CURDIR)/include
 
-all: localmin.out
+all: run_individual_instance.out
 
-localmin.out: build/localmin.o build/main.o
+run_individual_instance.out: build/localmin.o build/run_individual_instance.o
 		$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 
 build/%.o: src/%.cpp include/%.hpp
 		$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
-build/main.o: src/main.cpp include/localmin.hpp
+build/run_individual_instance.o: src/run_individual_instance.cpp include/localmin.hpp
 		$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
