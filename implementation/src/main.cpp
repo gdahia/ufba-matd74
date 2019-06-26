@@ -1,7 +1,20 @@
+#include <cassert>
 #include <iostream>
 #include <vector>
 
 #include <localmin.hpp>
+
+bool dfs(const int v, std::vector<bool> &vis,
+         std::vector<std::vector<int>> &adj) {
+  vis[v] = true;
+  int vis_count = 0;
+  for (const int u : adj[v])
+    if (vis[u])
+      vis_count++;
+    else if (!dfs(u, vis, adj))
+      return false;
+  return true;
+}
 
 int main() {
   // read graph main info
@@ -26,6 +39,17 @@ int main() {
 
   // run localmin on instance
   auto l = mbst::LocalMinHeuristic(adj);
+
+  // assert result is indeed tree
+  const auto &tree = l.get_tree();
+  adj.clear();
+  adj.resize(n);
+  for (const auto e : tree) {
+    adj[e.first].push_back(e.second);
+    adj[e.second].push_back(e.first);
+  }
+  std::vector<bool> vis(n, false);
+  assert(dfs(0, vis, adj));
 
   // print tree
   std::cout << std::endl << "Output tree:" << std::endl;
