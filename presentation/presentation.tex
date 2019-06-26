@@ -18,7 +18,8 @@
 \item<1-> $G = (V, E)$: simples, conexo, n\~ao-direcionado, $n$ v\'ertices, $m$ arestas;
 \item<2-> $T \in \mathcal{T}(G)$: \'arvore geradora de $G$;
 \item<3-> \emph{Ramifica\c{c}\~ao}: v\'ertice com grau superior a 2;
-\item<4-> $b(T)$: n\'umero de ramifica\c{c}\~oes em $T$.
+\item<4-> $b(T)$: n\'umero de ramifica\c{c}\~oes em $T$;
+\item<4-> $P(T)$: n\'umero de n\~ao-ramifica\c{c}\~oes em $T$.
 \end{itemize}
 \end{frame}
 
@@ -106,6 +107,94 @@ T^* = \mathrm{arg\,min}_{T \in \mathcal{T}(G)} b(T)
 \item caminhos longos.
 \end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Potenciais e an\'alise amortizada}
+\begin{itemize}
+\item<1-> Proposto por Solis-Oba \textit{et al.} (1998; 2015);
+\item<2-> Usada para aproximar maximiza\c{c}\~ao de folhas;
+\item<3-> Contagem amortizada de propor\c{c}\~oes.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Potenciais e an\'alise amortizada}
+Defina
+\begin{equation}
+\mathcal{P}(T) = xP(T) - V(T).
+\end{equation}
+\end{frame}
+
+\begin{frame}
+\frametitle{Potenciais e an\'alise amortizada}
+Queremos provar que
+\begin{equation}
+\Delta \mathcal{P}_{i + 1} = \mathcal{P}(T_{i + 1}) - \mathcal{P}(T_i)
+\end{equation}
+satisfaz
+\begin{equation}
+\Delta \mathcal{P}_{i} \ge 0, \forall i
+\end{equation}
+\end{frame}
+
+\begin{frame}
+\frametitle{Potenciais e an\'alise amortizada}
+Fazendo isso, temos
+\begin{equation}
+\Delta \mathcal{P}_n = xP(T_n) - n \ge 0
+\end{equation}
+e, portanto,
+\begin{equation}
+P(T_n) \ge \frac{n}{x} \ge \frac{P(T^*)}{x}
+\end{equation}
+\end{frame}
+
+\begin{frame}
+\frametitle{Demonstra\c{c}\~ao de aproxima\c{c}\~ao trivial}
+\begin{block}{Teorema (Chimani \& Spoerhase, 2015)}
+Qualquer grafo admite 2-aprox.
+\end{block}
+
+\begin{block}{Demonstra\c{c}\~ao}<2->
+Construa a \'arvore usando BFS e fa\c{c}a $x = 2$.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Heur\'istica local}
+\begin{block}{Algoritmo}
+Construa a \'arvore usando BFS, mas s\'o processe v\'ertices com exatamente 2 vizinhos n\~ao visitados em \'ultimo caso.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Heur\'istica local}
+\begin{block}{Por qu\^e?}
+Processar $v$ com $k \ge 2$ vizinhos faz com que
+\begin{itemize}
+\item $P(T)$ aumente em $k - 1$;
+\item $V(T)$ aumente em $k$;
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Heur\'istica local}
+\begin{block}{Por qu\^e?}
+Logo,
+\begin{equation}
+\Delta \mathcal{P}_{i + 1} \ge x(k - 1) - k \ge 0
+\end{equation}
+\begin{equation}
+x \ge k/(k - 1).
+\end{equation}
+\pause
+Se $k = 2$,
+\begin{equation}
+x \ge 2.
+\end{equation}
+\end{block}
 \end{frame}
 
 \end{document}
