@@ -10,6 +10,7 @@ pair<int, int> LocalMinHeuristic::find_max_unexpanded_degree() {
   int max_unexpanded = 0;
   int best = -1;
   for (int i = 0; i < n; i++)
+    // only check frontier vertices
     if (color[i] == 1) {
       const auto &neigh_list = adj[i];
 
@@ -72,16 +73,17 @@ void LocalMinHeuristic::expand(const int v) {
 }
 
 int LocalMinHeuristic::find_single_neighbor_vertex() {
-  for (int i = 0; i < n; i++) {
-    // compute number of unexpanded neighbors
-    int unexpanded_neighs = 0;
-    for (const int neigh : adj[i])
-      if (color[neigh] == 0)
-        unexpanded_neighs++;
+  for (int i = 0; i < n; i++)
+    if (color[i] == 1) {
+      // compute number of unexpanded neighbors
+      int unexpanded_neighs = 0;
+      for (const int neigh : adj[i])
+        if (color[neigh] == 0)
+          unexpanded_neighs++;
 
-    if (unexpanded_neighs == 1)
-      return i;
-  }
+      if (unexpanded_neighs == 1)
+        return i;
+    }
 
   return -1;
 }
