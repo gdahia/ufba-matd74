@@ -152,27 +152,11 @@ P(T_n) \ge \frac{n}{x} \ge \frac{P(T^*)}{x}
 \end{frame}
 
 \begin{frame}
-\frametitle{Demonstra\c{c}\~ao de aproxima\c{c}\~ao trivial}
-\begin{block}{Teorema (Chimani \& Spoerhase, 2015)}
-Qualquer grafo admite 2-aprox.
-\end{block}
-
-\begin{block}{Demonstra\c{c}\~ao}<2->
-Construa a \'arvore usando BFS e fa\c{c}a $x = 2$.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{Heur\'istica local}
-\begin{block}{Algoritmo}
-Construa a \'arvore usando BFS, mas s\'o processe v\'ertices com exatamente 2 vizinhos n\~ao visitados em \'ultimo caso.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{Heur\'istica local}
+\frametitle{An\'alise de heur\'isticas anteriores}
+N\~ao expandir $v$ com 2 vizinhos \'e algoritmo aprox.
+\pause
 \begin{block}{Por qu\^e?}
-Processar $v$ com $k \ge 2$ vizinhos faz com que
+Expandir $v$ com $k \ge 2$ vizinhos faz com que
 \begin{itemize}
 \item $P(T)$ aumente em $k - 1$;
 \item $V(T)$ aumente em $k$;
@@ -181,7 +165,7 @@ Processar $v$ com $k \ge 2$ vizinhos faz com que
 \end{frame}
 
 \begin{frame}
-\frametitle{Heur\'istica local}
+\frametitle{An\'alise de heur\'isticas anteriores}
 \begin{block}{Por qu\^e?}
 Logo,
 \begin{equation}
@@ -196,6 +180,43 @@ Se $k = 2$,
 x \ge 2.
 \end{equation}
 \end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Demonstra\c{c}\~ao de aproxima\c{c}\~ao trivial}
+\begin{block}{Teorema (Chimani \& Spoerhase, 2015)}
+Qualquer grafo admite 2-aprox.
+\end{block}
+
+\begin{block}{Demonstra\c{c}\~ao}<2->
+Construa a \'arvore usando BFS e fa\c{c}a $x = 2$.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Heur\'istica local}
+\begin{block}{Algoritmo}
+Construa a \'arvore usando BFS, mas s\'o processe v\'ertices com exatamente 2 vizinhos n\~ao visitados em \'ultimo caso.
+% rapida, passivel de ser refinada pelo aproximativo de chimamani depois, usando budget de tempo
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclus\~oes e poss\'iveis extens\~oes}
+\begin{itemize}
+\item An\'alise de heur\'isticas anteriores;
+\item<2-> Proposta de heur\'istica usando \textit{insight} te\'orico;
+\item<3-> Objetivo para m\'etodos de aprendizado;
+\item<4-> Considerar classes espec\'ificas de grafos;
+\item<5-> Tratar casos como em Solis-Oba \textit{et al.} (2015).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\huge
+Obrigado!
+\end{center}
 \end{frame}
 
 \end{document}
