@@ -80,15 +80,57 @@ Além disso, os autores também detalham uma heuristica baseada na construção 
 \section{Metodologia} \label{sec:methodology}
 
 A metodologia que nos propomos para o trabalho final dessa disciplina é, até onde sabemos, inédita para MBST.
-Em primeiro lugar, gostaríamos de analisar um algoritmo guloso como aquele proposto por Salamon~\cite{salamon2010} para formulação complementar do problema, pois sabemos que esta formulação admite aproximabilidade muito melhor do que a original~\cite{chimani2015}.
+Nosso trabalho \'e baseado na abordagem de Solis-Oba \textit{et al.} para aproximação de árvores geradoras com muitas folhas~\cite{solis-oba2017}, e visa nortear a formulação de uma heurística analisadoo problema complementar à MBST.
 
-Também gostaríamos de analisar que garantias podemos obter ao aplicar a técnica desenvolvida por Solis-Oba \textit{et al.} para aproximação de árvores geradoras com muitas folhas~\cite{solis-oba2017} ao problema complementar à MBST.
+Essa abordagem, uma t\'ecnica de contagem amortizada de uma diferen\c{c}a, consiste em definir uma
+quantia, que os autores chamam de \emph{potencial}~\cite{solis-oba2017}, e desenvolver um algoritmo
+que fa\c{c}a com que a varia\c{c}\~ao de potencial entre duas itera\c{c}\~oes do algoritmo seja
+sempre n\~ao-negativa. Como tamb\'em temos a garantia de que o potencial \'e n\~ao-negativo antes
+da inicializa\c{c}\~ao do algoritmo, ao final de sua execu\c{c}\~ao, temos, por indu\c{c}\~ao, que
+o potencial \'e tamb\'em n\~ao-negativo.
 
-% salamon 2010 differs in which it selects the vertex with globally more neighbors, whereas ours selects the vertex which would produce the least amount of branch vertices and builds a tree, instead of a forest which is later connected. also, we defer vertices with only 2 non-selected neighbors, because they can make the potential go below 0 (we can make our algorithm non-local in this scenario and select instead a good vertex outside of the tree if we can make a rule for connecting the trees in the forest to form a spanning tree)
+Informalmente, definindo o potencial como a diferen\c{c}a entre uma medida de qualidade da nossa
+solu\c{c}\~ao e um valor superior a solu\c{c}\~ao \'otima, essa t\'ecnica permite provar taxas de
+aproxima\c{c}\~ao para algoritmos. Na pr\'oxima se\c{c}\~ao, definimos formalmente essa abordagem.
 
-% our potential analysis gives an alternate proof of trivial 1/2 approximability
+\subsection{Potencial de uma \'arvore geradora}
+Seja $P(T)$ o n\'umero de v\'ertices com grau menor ou igual a 2 na \'arvore $T$, \textit{i.e.} o
+n\'umero de v\'ertices de $T$ que n\~ao s\~ao ramifica\c{c}\~oes. Seja $V(T)$ o n\'umero total de
+v\'ertices de $T$.
 
-% develop heuristic based on theoretical analysis. show that if our algorithm only select vertices of the good kind, it results in at least an approximation. here, state that will study solis-oba technique to guide the development of an algorithm (heuristic or not) for this problem
+Considere uma sequ\^encia de \'arvores $T_0, \dots, T_n$ constru\'idas durante as itera\c{c}\~oes
+de um algoritmo, onde $T_0$ \'e a \'arvore vazia e $T_k$ \'e uma \'arvore geradora do grafo de
+entrada, e definimos $T_j = T_k, j > k$ por conveni\^encia.
+
+O \emph{potencial} $\mathcal{P}(T; x)$ de uma \'arvore \'e definido como:
+\begin{equation}
+  \mathcal{P}(T; x) = xP(T) - V(T).
+\end{equation}
+Quando claro ou irrelevante para o que estivermos dizendo, omitiremos a depend\^encia do param\^etro
+$x$.
+
+Queremos provar, para um determinado algoritmo, que $\mathcal{P}(T_n) \ge 0$. Com isso, sabemos que
+\begin{equation}
+   xP(T_n) - V(T_n) \ge 0
+\end{equation}
+e, portanto,
+\begin{equation}
+  P(T_n) \ge V(T_n)/x.
+\end{equation}
+Como sabemos que $V(T_n) = n \ge P(T^*)$, temos
+\begin{equation}
+  P(T_n) \ge P(T^*)/x,
+\end{equation}
+e o algoritmo para o qual provamos esse fato \'e uma aproxima\c{c}\~ao de fator $x$ para o problema
+complementar a MBST.
+
+Para provar que $\mathcal{P}(T_n) \ge 0$, a abordagem de
+Solis-Oba~\textit{et al.}~\cite{solis-oba2017} \'e provar que $\mathcal{P}(T_0) \ge 0$ e que para
+todo $i$, a diferen\c{c}a entre os potencias de $i$ e $i+1$
+\begin{equation}
+  \Delta \mathcal{P}_{i + 1} = \mathcal{P}(T_{i + 1}) - \mathcal{P}(T_i)
+\end{equation}
+tamb\'em \'e n\~ao negativa, \textit{i.e.} $\Delta \mathcal{P}_{i + 1} \ge 0, \forall i$.
 
 \bibliographystyle{IEEEtran}
 \bibliography{biblio}
