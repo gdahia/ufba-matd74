@@ -150,7 +150,12 @@ Na realidade, esse resultado \'e muito mais expressivo do que o que provamos aqu
   n\~ao s\~ao ramifica\c{c}\~oes.
 \end{obs}
 \begin{proof}
-  $T_0$, a \'arvore vazia, anterior ao come\c{c}o da BFS, trivialmente satisfaz $\mathcal{P}(T_0) \ge 0$ (ambas quantias s\~ao 0).
+  $T_0$, a \'arvore vazia, anterior ao come\c{c}o da BFS, trivialmente satisfaz
+  $\mathcal{P}(T_0) \ge 0$ (ambas quantias s\~ao 0). O primeiro passo do algoritmo \'e igualmente
+  simples, pois sabemos que o grau m\'inimo do grafo \'e 3 (caso contr\'ario, n\~ao ter\'iamos
+  nenhuma ramifica\c{c}\~ao) e podemos escolher qualquer v\'ertice como raiz da \'arvore.
+  Essa an\'alise \'e similar ao segundo caso analisado em seguida e segue a desigualdade
+  (\ref{eq:essential}).
 
   No $i$-\'esimo passo do algoritmo, adicionamos os $q$ vizinhos n\~ao visitados de um v\'ertice
   \`a \'arvore $T_i$ (uma opera\c{c}\~ao \`a qual partir de agora nos referiremos como
