@@ -75,9 +75,36 @@ T^* = \mathrm{arg\,min}_{T \in \mathcal{T}(G)} b(T)
 \begin{frame}
 \frametitle{Problemas relacionados}
 \begin{itemize}
-\item<1->Caminho Hamiltoniano;
-\item<2->Minimizar folhas – maximizar v\'ertices internos;
-\item<3->Maximizar v\'ertices n\~ao-ramificantes.
+\item<1->Problema NP-D\'ificil;
+\item<2->Caminho Hamiltoniano;
+\item<3->Minimizar folhas – maximizar v\'ertices internos;
+\item<4->Maximizar v\'ertices n\~ao-ramificantes.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{T\'ecnicas anteriores}
+\begin{itemize}
+\item<1->Algoritmos exatos:
+\begin{itemize}
+\item polinomiais p/ casos espec\'ificos;
+\item aproximativos.
+\end{itemize}
+\item<2->Programa\c{c}\~ao inteira;
+\item<3->Heur\'isticas.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Heur\'isticas conhecidas}
+\begin{itemize}
+% ambos sao objetivos validos: se conseguirmos otimizar essas
+% quantidades perfeitamente, nos otimizamos MBST. (explicar como)
+\item Algoritmos gulosos:
+\begin{itemize}
+\item arestas que criem menos ramifica\c{c}\~oes;
+\item caminhos longos.
+\end{itemize}
 \end{itemize}
 \end{frame}
 
