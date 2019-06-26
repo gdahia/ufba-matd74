@@ -6,11 +6,14 @@
 \usepackage[T1]{fontenc}
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newtheorem{obs}{Observa\c{c}\~ao}[section]
 \begin{document}
 
 \title{Relatório parcial MATD74}
@@ -95,7 +98,7 @@ Informalmente, definindo o potencial como a diferen\c{c}a entre uma medida de qu
 solu\c{c}\~ao e um valor superior a solu\c{c}\~ao \'otima, essa t\'ecnica permite provar taxas de
 aproxima\c{c}\~ao para algoritmos. Na pr\'oxima se\c{c}\~ao, definimos formalmente essa abordagem.
 
-\subsection{Potencial de uma \'arvore geradora}
+\subsection{Potencial de uma \'arvore geradora} \label{sec:potential}
 Seja $P(T)$ o n\'umero de v\'ertices com grau menor ou igual a 2 na \'arvore $T$, \textit{i.e.} o
 n\'umero de v\'ertices de $T$ que n\~ao s\~ao ramifica\c{c}\~oes. Seja $V(T)$ o n\'umero total de
 v\'ertices de $T$.
@@ -116,11 +119,11 @@ Queremos provar, para um determinado algoritmo, que $\mathcal{P}(T_n) \ge 0$. Co
    xP(T_n) - V(T_n) \ge 0
 \end{equation}
 e, portanto,
-\begin{equation}
+\begin{equation} \label{eq:tigher-bound}
   P(T_n) \ge V(T_n)/x.
 \end{equation}
 Como sabemos que $V(T_n) = n \ge P(T^*)$, temos
-\begin{equation}
+\begin{equation} \label{eq:pot-obj}
   P(T_n) \ge P(T^*)/x,
 \end{equation}
 e o algoritmo para o qual provamos esse fato \'e uma aproxima\c{c}\~ao de fator $x$ para o problema
@@ -133,6 +136,60 @@ todo $i$, a diferen\c{c}a entre os potencias de $i$ e $i+1$
   \Delta \mathcal{P}_{i + 1} = \mathcal{P}(T_{i + 1}) - \mathcal{P}(T_i)
 \end{equation}
 tamb\'em \'e n\~ao negativa, \textit{i.e.} $\Delta \mathcal{P}_{i + 1} \ge 0, \forall i$.
+
+\subsection{Demonstra\c{c}\~ao de aproximabilidade trivial usando BFS}
+
+Aqui, n\'os usamos o que foi definido na Se\c{c}\~ao~\ref{sec:potential} para detalhar uma
+demonstra\c{c}\~ao alternativa de que todo grafo admite uma \'arvore geradora em que pelo menos
+metade de seus v\'ertices n\~ao s\~ao bifurca\c{c}\~oes~\cite{chimani2015}.
+Na realidade, esse resultado \'e muito mais expressivo do que o que provamos aqui: \emph{qualquer}
+\'arvore geradora satisfaz essa propriedade~\cite{chimani2015}.
+
+\begin{obs}
+  Pelo menos metade dos v\'ertices de \'arvores geradoras obtidas com o algoritmo de busca em largura
+  n\~ao s\~ao ramifica\c{c}\~oes.
+\end{obs}
+\begin{proof}
+  $T_0$, a \'arvore vazia, anterior ao come\c{c}o da BFS, trivialmente satisfaz $\mathcal{P}(T_0) \ge 0$ (ambas quantias s\~ao 0).
+
+  No $i$-\'esimo passo do algoritmo, adicionamos os $q$ vizinhos n\~ao visitados de um v\'ertice
+  \`a \'arvore $T_i$ (uma opera\c{c}\~ao \`a qual partir de agora nos referiremos como
+  ``expans\~ao do v\'ertice), obtendo a \'arvore $T_{i + 1}$. Por praticidade, dividimos a
+  an\'alise de $\Delta \mathcal{P}_{i + 1}$ em dois casos, $q = 1$ e $q \ge 2$.
+  \begin{itemize}
+    \item Para o caso em que $q = 1$, temos que ambos $P(T)$ e $V(T)$ crescem em uma unidade. Da\i
+      \begin{equation}
+        \Delta \mathcal{P}_{i + 1} = x - 1 \ge 0
+      \end{equation}
+      e, portanto, precisamos que
+      \begin{equation} \label{eq:x-bound}
+        x \ge 1
+      \end{equation}
+      para satisfazermos a desigualdade (\ref{eq:pot-obj}) e obtermos a aproximabilidade de fator
+      $x$. Note, agora, que desigualdades como (\ref{eq:x-bound}) nos d\~ao um limite inferior para
+      $x$ e que n\'os desejamos \emph{minimizar o seu valor}, pois quanto menor, melhor a taxa de
+      aproxima\c{c}\~ao. No caso espec\'ifico da desigualdade (\ref{eq:x-bound}), essa \'e a melhor
+      taxa poss\'ivel: usando a desigualdade (\ref{eq:tigher-bound}), obtemos que nessa \'arvore
+      n\~ao h\'a ramifica\c{c}\~oes. Isso est\'a de acordo com a expectativa que tinh\'amos ao
+      analisar o caso em que o n\'umero de vizinhos $q = 1$, pois se todas as expans\~oes forem desse
+      tipo, estaremos construindo um Caminho Hamiltoniano.
+    \item Para o caso em que $q \ge 2$, temos que $P(T)$ cresce em $q$, mas perde uma unidade, j\'a
+      que o v\'ertice expandido passa a ser uma ramifica\c{c}\~ao. A varia\c{c}\~ao para $P(T)$,
+      ent\~ao, \'e de $q - 1$. $V(T)$, por outro lado, \'e acrescido de $q$. Substituindo esses
+      valores, temos que
+      \begin{equation}
+        \Delta \mathcal{P}_{i + 1} = x(q - 1) - q \ge 0.
+      \end{equation}
+      Reorganizando os termos, obtemos
+      \begin{equation} \label{eq:essential}
+        x \ge q/(q - 1).
+      \end{equation}
+      No pior caso, $q = 2$ e obtemos que $x \ge 2$.
+  \end{itemize}
+  Logo, pela an\'alise dos dois casos, sabemos que \'e suficiente substituir $x = 2$ na
+  deriva\c{c}\~ao da Se\c{c}\~ao~\ref{sec:potential} para obter a aproxima\c{c}\~ao de fator 2 para
+  as \'arvores geradoras obtidas com busca em largura.
+\end{proof}
 
 \bibliographystyle{IEEEtran}
 \bibliography{biblio}
