@@ -202,9 +202,15 @@ Construa a \'arvore usando BFS e fa\c{c}a $x = 2$.
 \begin{frame}
 \frametitle{Heur\'istica local}
 \begin{block}{Algoritmo}
-Construa a \'arvore usando BFS, mas s\'o processe v\'ertices com exatamente 2 vizinhos n\~ao visitados em \'ultimo caso.
-% rapida, passivel de ser refinada pelo aproximativo de chimamani depois, usando budget de tempo
+Expanda o v\'ertice que
+\begin{enumerate}
+  \item possui apenas um vizinho n\~ao expandido; ou
+  \item possui o maior n\'umero de vizinhos, caso n\~ao haja com apenas um,
+\end{enumerate}
+at\'e que a \'arvore seja geradora.
 \end{block}
+\pause
+Complexidade: $O(V^2)$.
 \end{frame}
 
 \begin{frame}
