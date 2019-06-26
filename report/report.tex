@@ -1,0 +1,96 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Relatório parcial MATD74}
+
+\author{\IEEEauthorblockN{Gabriel Dahia}
+\IEEEauthorblockA{\textit{Departamento de Ciência da Computação} \\
+\textit{Universidade Federal da Bahia}\\
+Salvador, Brasil\\
+gdahia@gmail.com}
+}
+
+\maketitle
+
+\begin{abstract}
+  Este relatório parcial, feito como requisito para disciplina ``MATD74 - Algoritmos e Grafos'' do Programa de Pós-Graduação em Computação da Universidade Federal da Bahia (PGCOMP-UFBA), aborda o problema de construir árvores geradoras com poucos vértices de grau superior a 3.
+  Neste documento, definimos formalmente o problema, fazemos uma análise simples de sua categorização na hierarquia de complexidade, mostrando que se trata de um problema NP-Difícil, de difícil aproximação (mas com aproximação trivial do seu problema complementar), revisamos brevemente a literatura sobre o tema, e explicamos a abordagem com a qual trabalharemos no futuro.
+\end{abstract}
+
+\section{Introdução}
+A definição formal do problema ao qual nos referiremos como MBST, abreviação de \textit{Minimum Branching-vertices Spannning Tree}, é: dado um grafo $G$, encontrar uma árvore geradora $T$ em que o número de \emph{vértices de ramificação}\footnote{Nossa tradução para \textit{branch vertices}.}, \textit{i.e.} vértices com grau superior a 2, é o menor possivel~\cite{gargano2004}.
+Usando $d_T(v)$ para denotar o grau de um vértice $v \in V$ em uma árvore $T$ e $\mathcal{T}$ para denotar o conjunto das árvores geradoras de $G$, o problema pode ser escrito como encontrar $T^*$ tal que:
+\begin{equation}
+  T^* = \mathrm{arg\,min}_{T \in \mathcal{T}} |\{v \in V \mid d_T(v) > 2 \}| 
+\end{equation}
+
+Este problema foi originalmente proposto como uma formulação alternativa ao problema do caminho Hamiltoniano (\textit{Hamiltonian path problem})~\cite{gargano2004}.
+A relação entre estes problemas é que um caminho Hamiltoniano é também uma árvore geradora que não possui nenhum vértice de ramificação.
+Logo, se um grafo admite um caminho Hamiltoniano, encontrar uma árvore geradora em que o número de vértices de ramificação é mínimo em um grafo é equivalente a encontrar um caminho Hamiltoniano nesse mesmo grafo~\cite{gargano2004}.
+
+Isso por si só é suficiente para estabelecer que MBST é um problema NP-Difícil, já que encontrar um caminho Hamiltoniano em um grafo é um problema NP-Completo~\cite{karp1972}.
+Além disso, sabemos que mesmo no caso em que o grafo não admite caminho Hamiltoniano, e portanto possui pelo menos um vértice de ramificação, MBST não pode ser aproximado a uma taxa multiplicativa de $\Omega(\log n)$, em que $n$ é o número de vértices do grafo, da resposta ótima, a não ser que P~=~NP~\cite{salamon2010}.
+Consideramos que P $\neq$ NP é uma suposição razoável e a trataremos como verdadeira no que se segue.
+
+A formulação complementar ao problema, \textit{i.e.} encontrar uma árvore geradora que possua o maior número de vértices com grau menor igual a 2, é trivialmente aproximável a um fator multiplicativo de $1/2$ em relação a resposta ótima~\cite{chimani2015}.
+Isso ocorre porque, apesar de algoritmos para o problema estarem de fato otimizando a mesma propriedade acerca das árvores geradoras (já que a soma das quantidades desses dois conjuntos de vértices é igual a totalidade de vértices no grafo), para o problema complementar temos um limite superior ao valor do ótimo igual a $n$.
+Como toda árvore geradora tem pelo menos $n/2$ vértices com grau 1 ou 2, qualquer algoritmo que encontre uma árvore geradora é um algoritmo aproximativo para esse problema~\cite{chimani2015}.
+
+As seções seguintes trazem um compêndio de trabalhos relacionados e nossa futura metodologia.
+A Seção~\ref{sec:review} traz uma breve revisão da literatura e a Seção~\ref{sec:methodology} traz um sumário do que pretendemos investigar.
+
+\section{Revisão da Literatura} \label{sec:review}
+
+A primeira análise do de MBST foi acompanhada de um algoritmo de tempo polinomial para encontrar uma árvore geradora que possui apenas um vértice de ramificação em grafos cuja soma dos graus de qualquer conjunto independente é pelo menos o seu número de vértices subtraido de um~\cite{gargano2004}.
+
+O primeiro, e até onde sabemos único, algoritmo aproximativo para a formulação principal de MBST consiste em construir uma floresta pela escolha de arestas viáveis do vértice com o maior número de vizinhos ainda não selecionados.
+Este algoritmo produz no máximo $3 \lceil \log_{1/(1 - c)} n \rceil + 1$ vértices de ramificação, onde $c$ é tal que o número total de arestas do grafo de entrada é igual a $cn$.
+Para grafos que não admitam caminho Hamiltoniano, essa é uma aproximação ótima, a menos de uma constante que depende do valor de $c$~\cite{salamon2010}.
+
+Já para a formulação complementar do problema, Chimani e Spoerhase~\cite{chimani2015} foram capazes de determinar que o algoritmo de busca local que otimiza trocas de até 2 arestas de uma árvore geradora encontra soluções com fator de aproximação multiplicativa de $6/11$~\cite{chimani2015}.
+
+A aplicabilidade prática e difícil aproximabilidade do problema motivou pesquisadores a procurarem heurísticas que, apesar de não contarem com garantias teóricas, obtivessem bons resultados na prática, e formulações de programação linear inteira, que, por outro lado, não têm garantias sobre seu tempo de execução, mas costumam ter performance satisfatória.
+
+Cerulli \textit{et al.}~\cite{cerulli2009} foram os primeiros a propor heurísticas para MBST.
+Eles propuseram três heurísticas, uma baseada em atribuição de pesos em arestas, uma em um esquema de coloração de vértices, e uma resultante da combinação dessas duas heurísticas.
+Estas heurísticas são baseadas em critérios gulosos em relação ao número de vértices de ramificação que seriam criados com a seleção de uma determinada aresta no estado atual de construção da árvore.
+
+Carrabs \textit{et al.}~\cite{carrabs2013} desenvolvem formulações de Programação Inteira e utilizam diferentes relaxações, utilizando instâncias para as quais a solução ótima é conhecida ou as heurísticas propostas anteriormente como comparação para concluir a efetividade dos métodos propostos.
+
+Já Marin~\cite{marin2015} propõe um algoritmo \textit{branch-and-cut} baseado em Programação Inteira capaz de resolver mais instâncias que as abordagens anteriores.
+Para as instâncias as quais a formulação não é capaz de resolver, ele propõe o emprego de uma heurística de duas fases.
+A primeira fase dessa heurística é baseada no algoritmo de Prim para árvores geradoras mínimas~\cite{prim1957}, enquanto a segunda utiliza otimizações locais~\cite{marin2015}.
+
+Melo \textit{et al.}~\cite{melo2016} propõem técnicas de decomposição para reduzir o problema a tamanhos para os quais soluções de Programação Inteira são tratáveis.
+Essas decomposições envolvem determinar vértices que obrigatoriamente são de ramificação em qualquer árvore geradora ou remover arestas de corte do grafo e resolver o problema para os subgrafos resultantes.
+Além disso, os autores também detalham uma heuristica baseada na construção gulosa de caminhos longos em duas etapas, efetivamente minimizando o número de ramificações~\cite{melo2016}.
+
+\section{Metodologia} \label{sec:methodology}
+
+A metodologia que nos propomos para o trabalho final dessa disciplina é, até onde sabemos, inédita para MBST.
+Em primeiro lugar, gostaríamos de analisar um algoritmo guloso como aquele proposto por Salamon~\cite{salamon2010} para formulação complementar do problema, pois sabemos que esta formulação admite aproximabilidade muito melhor do que a original~\cite{chimani2015}.
+
+Também gostaríamos de analisar que garantias podemos obter ao aplicar a técnica desenvolvida por Solis-Oba \textit{et al.} para aproximação de árvores geradoras com muitas folhas~\cite{solis-oba2017} ao problema complementar à MBST.
+
+% salamon 2010 differs in which it selects the vertex with globally more neighbors, whereas ours selects the vertex which would produce the least amount of branch vertices and builds a tree, instead of a forest which is later connected. also, we defer vertices with only 2 non-selected neighbors, because they can make the potential go below 0 (we can make our algorithm non-local in this scenario and select instead a good vertex outside of the tree if we can make a rule for connecting the trees in the forest to form a spanning tree)
+
+% our potential analysis gives an alternate proof of trivial 1/2 approximability
+
+% develop heuristic based on theoretical analysis. show that if our algorithm only select vertices of the good kind, it results in at least an approximation. here, state that will study solis-oba technique to guide the development of an algorithm (heuristic or not) for this problem
+
+\bibliographystyle{IEEEtran}
+\bibliography{biblio}
+
+\end{document}
