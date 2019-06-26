@@ -156,8 +156,10 @@ P(T_n) \ge \frac{n}{x} \ge \frac{P(T^*)}{x}
 \end{frame}
 
 \begin{frame}
-\frametitle{An\'alise de heur\'isticas anteriores}
-N\~ao expandir $v$ com 2 vizinhos \'e algoritmo aprox.
+\frametitle{Heur\'istica local}
+\begin{block}{Ideia}
+N\~ao expandir (adicionar na \'arvore em constru\c{c}\~ao) $v$ com 2 vizinhos \'e algoritmo aprox.
+\end{block}
 \pause
 \begin{block}{Por qu\^e?}
 Expandir $v$ com $k \ge 2$ vizinhos faz com que
@@ -169,7 +171,7 @@ Expandir $v$ com $k \ge 2$ vizinhos faz com que
 \end{frame}
 
 \begin{frame}
-\frametitle{An\'alise de heur\'isticas anteriores}
+\frametitle{Heur\'istica local}
 \begin{block}{Por qu\^e?}
 Logo,
 \begin{equation}
@@ -208,11 +210,10 @@ Construa a \'arvore usando BFS, mas s\'o processe v\'ertices com exatamente 2 vi
 \begin{frame}
 \frametitle{Conclus\~oes e poss\'iveis extens\~oes}
 \begin{itemize}
-\item An\'alise de heur\'isticas anteriores;
-\item<2-> Proposta de heur\'istica usando \textit{insight} te\'orico;
-\item<3-> Objetivo para m\'etodos de aprendizado;
-\item<4-> Considerar classes espec\'ificas de grafos;
-\item<5-> Tratar casos como em Solis-Oba \textit{et al.} (2015).
+\item Proposta de heur\'istica usando \textit{insight} te\'orico;
+\item<2-> Objetivo para m\'etodos de aprendizado;
+\item<3-> Considerar classes espec\'ificas de grafos;
+\item<4-> Tratar casos como em Solis-Oba \textit{et al.} (2015).
 \end{itemize}
 \end{frame}
 
