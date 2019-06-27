@@ -116,7 +116,7 @@ de um algoritmo, onde $T_0$ \'e a \'arvore vazia e $T_k$ \'e uma \'arvore gerado
 entrada, e definimos $T_j = T_k, j > k$ por conveni\^encia.
 
 O \emph{potencial} $\mathcal{P}(T; x)$ de uma \'arvore \'e definido como:
-\begin{equation}
+\begin{equation} \label{eq:potential}
   \mathcal{P}(T; x) = xP(T) - V(T).
 \end{equation}
 Quando claro ou irrelevante para o que estivermos dizendo, omitiremos a depend\^encia do param\^etro
@@ -256,9 +256,32 @@ tabelas de um trabalho anterior~\cite{melo2016}, obtidos atrav\'es da submiss\~a
 \textit{arXiv}\footnote{https://arxiv.org/e-print/1509.06562}. Parseamos os resultados das tabelas
 usando a biblioteca Pandas~\cite{pandas}.
 
-Para sermos mais sucintos, apenas reportamos a raz\~ao entre o n\'umero de inst\^ancias em que nossa
-abordagem tem desempenho superior as abordagens anteriores, ao inv\'es de reportarmos resultados para
-cada inst\^ancia individualmente, para cada grupo de inst\^ancias definido pelos seus autores~\cite{carrabs2013}.
+Para sermos mais sucintos, apenas reportamos a m\'edia da diferen\c{c}a entre o n\'umero de ramifica\c{c}\~oes
+encontrado pelos m\'etodos anteriores e o n\'umero de ramifica\c{c}\~oes encontrado pela heur\'istica proposta.
+Os resultados obtidos podem ser encontrados na Tabela~\ref{table:results} e s\~ao restritos \`as 175
+inst\^ancias para as quais encontramos os resultados nos trabalhos anteriores.
+
+Estes resultados, que devem ser interpretados como ``a heur\'istica proposta ger
+\'arvores com $y$ ramifica\c{c}\~oes a mais que a t\'ecnica anterior A, em m\'edia'',
+mostram que existem trabalhos muito mais eficazes na literatura. Interessantemente, o m\'etodo
+que se sai melhor na compara\c{c}\~ao com nosso resultado, otimiza de maneira indireta o objetivo
+definido pelo potencial da equa\c{c}\~ao (\ref{eq:potential}), pois constroi caminhos longos.
+
+\begin{table}
+  \centering
+  \caption{Resultados comparativos entre heur\'istica proposta e m\'etodos reportados na literatura.
+  Note que os m\'etodos reportados pelos trabalhos anteriores s\~ao o melhor resultado obtido para
+  um grupo de heur\'isticas, n\~ao apenas uma t\'ecnica. Ainda assim, o resultado da heur\'istica
+  proposta deixa a desejar.}
+  \begin{tabular}{|c|c|c|}
+    \hline
+             & Melo \textit{et al.}~\cite{melo2016} & Carrabs \textit{et al.}~\cite{carrabs2013} \\
+    \hline
+    Proposta & 17.76 & 15.95 \\
+    \hline
+  \end{tabular}
+  \label{table:results}
+\end{table}
 
 \section{Conclus\~ao e trabalhos futuros}
 Definir um potencial mais sofisticado, como feito por Solis-Oba \textit{et al.}~\cite{solis-oba2017}, e garantir que alguns dos v\'ertices de grau 2 s\~ao obrigatoriamente ramifica\c{c}\~oes pode ser um caminho para garantir a taxa de aproxima\c{c}\~ao que nossa heur\'istica tenta obter sem garantias.
