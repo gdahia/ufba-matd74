@@ -145,7 +145,7 @@ todo $i$, a diferen\c{c}a entre os potencias de $i$ e $i+1$
 \end{equation}
 tamb\'em \'e n\~ao negativa, \textit{i.e.} $\Delta \mathcal{P}_{i + 1} \ge 0, \forall i$.
 
-\subsection{Demonstra\c{c}\~ao de aproximabilidade trivial usando BFS}
+\subsection{Demonstra\c{c}\~ao de aproximabilidade trivial usando BFS} \label{sec:bfs}
 
 Aqui, n\'os usamos o que foi definido na Se\c{c}\~ao~\ref{sec:potential} para detalhar uma
 demonstra\c{c}\~ao alternativa de que todo grafo admite uma \'arvore geradora em que pelo menos
@@ -284,7 +284,29 @@ definido pelo potencial da equa\c{c}\~ao (\ref{eq:potential}), pois constroi cam
 \end{table}
 
 \section{Conclus\~ao e trabalhos futuros}
+Neste trabalho, analisamos o uso de uma fun\c{c}\~ao de potencial (eq. \ref{eq:potential}) para o
+problema de minimizar o n\'umero de ramifica\c{c}\~oes em \'arvores geradoras. Apesar de n\~ao termos
+sido capazes de derivar um algoritmo aproximativo para esse problema, delineamos uma prova simples
+da aproximabilidade trivial do problema (Se\c{c}\~ao \ref{sec:bfs}) e propusemos uma heur\'istica
+baseada nos \textit{insights} que essa an\'alise nos deu.
+
+Com uma implementa\c{c}\~ao dessa heur\'istica\footnote{Dispon\'ivel tanto no anexo dessa
+submiss\~ao como no reposit\'orio \url{https://github.com/gdahia/ufba-matd74}}, realizamos
+experimentos computacionais simples e constatamos que existem solu\c{c}~oes mais eficazes
+dispon\'iveis na literatura. \'E interessante notar que a heur\'istica com melhor resultado na
+literatura otimiza a fun\c{c}\~ao potencial definida mais diretamente do que as outras.
+
+Apesar desses resultados negativos, nossa an\'alise ainda pode ser \'util por outras raz\~oes.
 Definir um potencial mais sofisticado, como feito por Solis-Oba \textit{et al.}~\cite{solis-oba2017}, e garantir que alguns dos v\'ertices de grau 2 s\~ao obrigatoriamente ramifica\c{c}\~oes pode ser um caminho para garantir a taxa de aproxima\c{c}\~ao que nossa heur\'istica tenta obter sem garantias.
+
+Outra poss\'ivel abordagem futura \'e analisar classes espec\'ificas de grafos para as quais n\~ao
+tenhamos que fazer a expans\~ao de v\'ertices com 2 vizinhos. Nesse caso, a an\'alise feita
+anteriormente garante que encontramos um algoritmo com fator de aproxima\c{c}\~ao $3/2$.
+
+Por \'ultimo, o potencial definido pode ser usado por algoritmos de aprendizado de m\'aquina como
+objetivo a ser maximizado. Especulamos que sua utiliza\c{c}\~ao, ao inv\'es da contagem de v\'ertices
+ramifica\c{c}\~ao no grafo, seja um sinal de aprendizado com melhor representa\c{c}\~ao do estado do
+grafo e caracter\'isticas desej\'aveis no que diz respeito a otimiza\c{c}\~ao.
 
 \bibliographystyle{IEEEtran}
 \bibliography{biblio}
