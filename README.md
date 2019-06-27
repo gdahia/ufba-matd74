@@ -37,3 +37,19 @@ We follow the format outlined by the instances of
 so the instance files above should be formated likewise. The format is first a single line with three space separated integers:
 the number of vertices, the number of edges, and a value to be ignored. The following lines, one per edge, have three space
 separated integers: the two endpoints of an edge in 1-indexed values, and a value to be ignored.
+
+# Reproducing results from Table I
+To reproduce the results from table, first we recommend you to install `python-venv`. To do this in
+Ubuntu, do:
+```
+sudo apt install python3-venv
+```
+
+After, do:
+```
+cd implementation/python
+python3 -m venv env
+source env/bin/activate
+python3 -m pip install -r requirements.txt
+python3 compare_results.py melo.csv ours.csv
+```
