@@ -198,6 +198,46 @@ Na realidade, esse resultado \'e muito mais expressivo do que o que provamos aqu
   as \'arvores geradoras obtidas com busca em largura.
 \end{proof}
 
+\subsection{Heur\'istica local baseada em \textit{insight} te\'orico}
+A desigualdade (\ref{eq:essential}) nos diz que quanto maior o n\'umero de vizinhos $q$, menor o
+valor de $x$ pode se tornar, melhorando a taxa de aproxima\c{c}\~ao do algoritmo.
+
+Tamb\'em podemos concluir, da an\'alise anterior, que caso n\~ao precis\'assemos expandir v\'ertices
+com dois vizinhos, poder\'iamos ter uma taxa de aproxima\c{c}\~ao $x = 3/2$.
+
+Com essa observa\c{c}\~ao em mente, propomos a heur\'istica (\ref{algo:heuristic}) para tentar evitar a expans\~ao de v\'ertices com 2 vizinhos n\~ao expandidos. Esse algoritmo \'e essencialmente um
+algoritmo que gulosamente expande os v\'ertices de maior grau na vizinha\c{c}a da \'arvore sendo
+gerada, com exe\c{c}\~ao do \textbf{if} da linha \ref{algo:if}, que evita a escolha problem\'atica de
+v\'ertices com 2 vizinhos.
+
+A sua complexidade \'e $O(n^2)$, j\'a que a cada uma das $O(n)$ itera\c{c}\~oes do \textbf{while} da linha \ref{algo:while} precisamos inspecionar o n\'umero de vizinhos n\~ao expandido de todos os v\'ertices da fronteira da \'arvore em $O(n)$. Existe uma depend\^encia linear no n\'umero de arestas do
+grafo, mas ela \'e dominada pelo termo $O(n^2)$. N\~ao h\'a um termo $O(nm)$ na complexidade do
+algoritmo porque precisamos atualizar no m\'aximo $O(n)$ arestas no total para formar uma \'arvore
+geradora.
+
+\begin{algorithm}
+  \caption{Algoritmo heur\'istico para evitar expans\~ao de v\'ertices com 2 vizinhos n\~ao expandidos.}
+  \label{algo:heuristic}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        \Procedure{HeuristicaLocal}{$G$}
+            \State $T \gets \emptyset$
+            \State $v \gets$ v\'ertice de maior grau em $G$
+            \State $T \gets \mathrm{expanda}(T, v)$
+            \State
+            \While{$T$ n\~ao for geradora} \label{algo:while}
+              \State $u \gets$ v\'ertice de $T$ com mais vizinhos fora de $T$
+              \If{$\mathrm{deg}_T(u) = 2$ e $\exists w, \mathrm{deg}_T(w) = 1$} \label{algo:if}
+                \State $u \gets$ $w$ \Comment{Evita expandir $u$ com 2 vizinhos}
+              \EndIf
+              \State $T \gets \mathrm{expanda}(T, u)$
+            \EndWhile
+            \State
+            \State \textbf{return} $T$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+
 \bibliographystyle{IEEEtran}
 \bibliography{biblio}
 
