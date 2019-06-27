@@ -7,9 +7,15 @@
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{amsthm}
+\usepackage[Algoritmo]{algorithm}
+\usepackage{algpseudocode}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{%
+    pdfborder = {0 0 0}
+}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
@@ -252,6 +258,9 @@ biblioteca Pandas~\cite{pandas}.
 Para sermos mais sucintos, apenas reportamos a raz\~ao entre o n\'umero de inst\^ancias em que nossa
 abordagem tem desempenho superior as abordagens anteriores, ao inv\'es de reportarmos resultados para
 cada inst\^ancia individualmente, para cada grupo de inst\^ancias definido pelos seus autores~\cite{carrabs2013}.
+
+\section{Conclus\~ao e trabalhos futuros}
+Definir um potencial mais sofisticado, como feito por Solis-Oba \textit{et al.}~\cite{solis-oba2017}, e garantir que alguns dos v\'ertices de grau 2 s\~ao obrigatoriamente ramifica\c{c}\~oes pode ser um caminho para garantir a taxa de aproxima\c{c}\~ao que nossa heur\'istica tenta obter sem garantias.
 
 \bibliographystyle{IEEEtran}
 \bibliography{biblio}
